@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bambu Printer Card – démo</title>
+<script src="https://cdn.jsdelivr.net/npm/@mdi/js@7.4.47/mdi.js" type="module"></script>
+<style>
+  :root {
+    --primary-color: #03a9f4; --primary-text-color: #212121; --secondary-text-color: #727272;
+    --divider-color: rgba(0,0,0,.12); --card-background-color: #fff; --secondary-background-color: #f4f4f4;
+    --text-primary-color: #fff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --primary-text-color: #e1e1e1; --secondary-text-color: #9b9b9b; --divider-color: rgba(255,255,255,.12);
+      --card-background-color: #1c1c1c; --secondary-background-color: #2a2a2a; }
+    body { background: #111 !important; color: #e1e1e1; }
+  }
+  body { font-family: Roboto, system-ui, sans-serif; margin: 0; padding: 16px; background: #fafafa; }
+  .wrap { max-width: var(--w, 520px); margin: auto; display: flex; flex-direction: column; gap: 16px; }
+  ha-card { display: block; background: var(--card-background-color); border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+  ha-icon { display: inline-flex; width: var(--mdc-icon-size, 24px); height: var(--mdc-icon-size, 24px); }
+  ha-icon svg { width: 100%; height: 100%; fill: currentColor; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <label>Scénario :
+    <select id="scenario"><option>printing</option><option>pause_error</option><option>idle</option><option>offline</option><option>powered_off</option></select>
+  </label>
+  <label>Largeur :
+    <select id="width"><option>400px</option><option selected>520px</option><option>800px</option><option>1200px</option></select>
+  </label>
+  <bambu-printer-card id="card"></bambu-printer-card>
+</div>
+<script type="module">
+  import * as mdi from "https://cdn.jsdelivr.net/npm/@mdi/js@7.4.47/mdi.js";
+  customElements.define("ha-card", class extends HTMLElement {});
+  customElements.define("ha-icon", class extends HTMLElement {
+    static get observedAttributes() { return ["icon"]; }
+    attributeChangedCallback() {
+      const name = "mdi" + (this.getAttribute("icon") || "").replace("mdi:", "").split("-").map((p) => p[0].toUpperCase() + p.slice(1)).join("");
+      if (!this.shadowRoot) this.attachShadow({ mode: "open" });
+      this.shadowRoot.innerHTML = `<style>:host{display:inline-flex;width:var(--mdc-icon-size,24px);height:var(--mdc-icon-size,24px)}svg{width:100%;height:100%;fill:currentColor}</style><svg viewBox="0 0 24 24"><path d="${mdi[name] || ""}"/></svg>`;
+    }
+  });
+  await import("./bambu-printer-card.js");
+
+  const P = "6a563c3a56e7cb6aecd12f463f278011", A = "b2bbfa8639e4de7f0a17aeb4c919ebff", X = "30cefdd75d124f37d5b636717e244c5f";
+  const S = "01P09B521100880";
+  const reg = [];
+  const states = {};
+  const add = (eid, uid, dev, state, attributes = {}) => { reg.push({ entity_id: eid, unique_id: uid, device_id: dev }); states[eid] = { entity_id: eid, state: String(state), attributes, last_updated: Date.now() }; };
+
+  function build(sc) {
+    reg.length = 0; for (const k in states) delete states[k];
+    add("switch.prise", "plug", "plug", sc === "powered_off" ? "off" : "on");
+    add("sensor.prise_power", "plug_w", "plug", sc === "printing" ? 142 : sc === "powered_off" ? 0 : 8);
+    if (sc === "powered_off") sc = "offline";
+    const off = sc === "offline", printing = sc === "printing" || sc === "pause_error";
+    const status = off ? "offline" : sc === "printing" ? "running" : sc === "pause_error" ? "pause" : "idle";
+    add("sensor.p_status", `${S}_print_status`, P, status, { device_class: "enum" });
+    add("binary_sensor.p_online", `${S}_online`, P, off ? "off" : "on");
+    add("sensor.p_stage", `${S}_stage`, P, printing ? (sc === "pause_error" ? "paused_filament_runout" : "printing") : "idle");
+    add("sensor.p_progress", `${S}_print_progress`, P, printing ? 63 : 0);
+    add("sensor.p_task", `${S}_subtask_name`, P, printing ? "Support casque v3" : "unavailable");
+    add("sensor.p_layer", `${S}_current_layer`, P, printing ? 142 : 0);
+    add("sensor.p_layers", `${S}_total_layers`, P, printing ? 226 : 0);
+    add("sensor.p_rem", `${S}_remaining_time`, P, printing ? 87 : 0);
+    add("sensor.p_weight", `${S}_print_weight`, P, printing ? 48.2 : 0);
+    add("sensor.p_length", `${S}_print_length`, P, printing ? 16.07 : 0);
+    add("sensor.p_noz", `${S}_nozzle_temp`, P, off ? 0 : printing ? 219.6 : 31);
+    add("sensor.p_noz_t", `${S}_target_nozzle_temp`, P, printing ? 220 : 0);
+    add("number.p_noz_t", `${S}_target_nozzle_temperature`, P, printing ? 220 : 0);
+    add("sensor.p_bed", `${S}_bed_temp`, P, off ? 0 : printing ? 48 : 27);
+    add("sensor.p_bed_t", `${S}_target_bed_temp`, P, printing ? 60 : 0);
+    add("number.p_bed_t", `${S}_target_bed_temperature`, P, printing ? 60 : 0);
+    for (const [k, v] of [["cooling_fan", 100], ["aux_fan", 40], ["chamber_fan", 30], ["heatbreak_fan", 100]]) {
+      add(`sensor.p_${k}_speed`, `${S}_${k}_speed`, P, printing ? v : 0);
+      if (k !== "heatbreak_fan") add(`fan.p_${k}`, `${S}_${k}`, P, printing ? "on" : "off", { percentage: printing ? v : 0 });
+    }
+    add("select.p_speed", `${S}_Speed`, P, off ? "unavailable" : "standard", { options: ["silent", "standard", "sport", "ludicrous"] });
+    add("button.p_pause", `${S}_pause`, P, "unknown");
+    add("button.p_resume", `${S}_resume`, P, "unknown");
+    add("button.p_stop", `${S}_stop`, P, "unknown");
+    add("button.p_refresh", `${S}_refresh`, P, "unknown");
+    add("light.p_light", `${S}_chamber_light`, P, off ? "unavailable" : "on");
+    add("sensor.p_wifi", `${S}_wifi_signal`, P, off ? 0 : -58);
+    add("binary_sensor.p_hms", `${S}_hms`, P, sc === "pause_error" ? "on" : "off", sc === "pause_error" ? { Count: 1, "1-Error": "Le filament AMS A1 est épuisé.", "1-Severity": "common", "1-Wiki": "https://wiki.bambulab.com" } : { Count: 0 });
+    add("binary_sensor.p_err", `${S}_print_error`, P, "off");
+    add("binary_sensor.p_fw", `${S}_firmware_update`, P, sc === "idle" ? "on" : "off");
+    add("binary_sensor.p_tl", `${S}_timelapse`, P, "off");
+    add("sensor.p_nd", `${S}_nozzle_diameter`, P, "0.4");
+    add("sensor.p_nt", `${S}_nozzle_type`, P, "stainless_steel");
+    add("sensor.p_bedtype", `${S}_print_bed_type`, P, printing ? "textured_plate" : "unknown");
+    add("sensor.p_usage", `${S}_total_usage_hours`, P, 218.87);
+    add("sensor.p_mqtt", `${S}_mqtt_mode`, P, "local");
+    add("camera.p_cam", `${S}_camera`, P, off ? "unavailable" : "streaming", { access_token: "x" });
+    add("image.p_cover", `${S}_cover_image`, P, "2026", { entity_picture: "https://placehold.co/640x360/png?text=Cover" });
+    const trays = [["#E4BD68FF", "PLA", "Bambu PLA Basic", 72], ["#000000FF", "PETG", "Bambu PETG HF", 35], ["#FF6A13FF", "PLA", "Generic PLA", -1], [null]];
+    trays.forEach(([c, t, n, r], i) => add(`sensor.ams_t${i + 1}`, `P1S_${S}_AMS_006_tray_${i + 1}`, A, off ? "unavailable" : c ? n : "Vide",
+      c ? { color: c, type: t, name: n, remain: r, active: printing && i === 0, nozzle_temp_min: 190, nozzle_temp_max: 230 } : { empty: true, color: "#00000000" }));
+    add("sensor.ams_hum", `P1S_${S}_AMS_006_humidity_index`, A, off ? "unavailable" : 2);
+    add("sensor.ext", `P1S_${S}_ExternalSpool_external_spool`, X, "", { active: false, color: "#00000000", type: "", name: "" });
+  }
+
+  const hass = {
+    states, locale: { language: "fr" },
+    devices: {
+      [P]: { id: P, name: "P1S_01P09B521100880", model: "P1S", manufacturer: "Bambu Lab" },
+      [A]: { id: A, name: "P1S_01P09B521100880_AMS_1", model: "AMS", manufacturer: "Bambu Lab", via_device_id: P },
+      [X]: { id: X, name: "P1S_01P09B521100880_ExternalSpool", model: "External Spool", manufacturer: "Bambu Lab", via_device_id: P },
+    },
+    entities: {},
+    callWS: async () => reg,
+    callService: async (...a) => console.log("callService", ...a),
+    formatEntityState: (s) => s.state,
+  };
+  const card = document.getElementById("card");
+  const sel = document.getElementById("scenario");
+  const run = () => { build(sel.value); card.hass = { ...hass }; };
+  card.setConfig({ device: P, title: "Imprimante 3D", power_switch: "switch.prise", power_sensor: "sensor.prise_power" });
+  sel.onchange = run;
+  const width = document.getElementById("width");
+  width.onchange = () => document.querySelector(".wrap").style.setProperty("--w", width.value);
+  run();
+  window.addEventListener("hass-more-info", (e) => console.log("more-info", e.detail));
+</script>
+</body>
+</html>
