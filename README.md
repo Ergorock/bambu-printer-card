@@ -24,6 +24,12 @@ The interface is available in English and French (it follows the Home Assistant 
 The layout follows the card width (container queries): 1 column below 700 px, 2 columns up to 1100 px, 3 columns beyond.
 For a wide card in a *sections* view, make the section full width (`column_span` equal to the view's `max_columns`).
 
+## Screenshots
+
+![Printer card](https://raw.githubusercontent.com/Ergorock/bambu-printer-card/main/images/card.png)
+
+![Visual editor](https://raw.githubusercontent.com/Ergorock/bambu-printer-card/main/images/editor.png)
+
 ## Installation
 
 ### HACS (custom repository)

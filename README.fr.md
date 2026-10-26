@@ -24,6 +24,12 @@ Pour une carte large dans une vue *sections*, mettez la section en pleine largeu
 
 L'interface est disponible en français et en anglais (elle suit la langue de Home Assistant).
 
+## Captures d'écran
+
+![Carte de l'imprimante](https://raw.githubusercontent.com/Ergorock/bambu-printer-card/main/images/card.png)
+
+![Éditeur visuel](https://raw.githubusercontent.com/Ergorock/bambu-printer-card/main/images/editor.png)
+
 ## Installation
 
 ### HACS (dépôt personnalisé)
