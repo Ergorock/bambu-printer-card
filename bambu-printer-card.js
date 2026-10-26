@@ -31,6 +31,190 @@
 const CARD_VERSION = "1.1.0";
 const PLATFORM = "bambu_lab";
 
+const STRINGS = {
+  en: {
+    card_description: "Everything about a Bambu Lab printer: camera, print job, temperatures, AMS, errors and controls.",
+    smart_plug: "Smart plug",
+    label_device: "Printer",
+    label_title: "Title (default: printer name)",
+    label_show_camera: "Camera",
+    label_show_controls: "Controls",
+    label_show_temperatures: "Temperatures",
+    label_show_fans: "Fans",
+    label_show_ams: "AMS / spools",
+    label_show_details: "Details",
+    label_power_switch: "Printer plug",
+    label_power_sensor: "Power (W)",
+    label_energy_sensor: "Energy used (kWh)",
+    no_device: "Choose the printer (“device” option)",
+    printer: "Printer",
+    powered_off: "Off",
+    offline: "Offline",
+    power: "Power",
+    light: "Light",
+    force_refresh: "Force refresh",
+    turn_off_plug: "Turn off the plug",
+    confirm_off_printing: "Printing! Turn off?",
+    confirm_off: "Turn off?",
+    show_model: "Show the model",
+    show_camera: "Show the camera",
+    hms_error: "Active HMS error",
+    print_error: "Print error",
+    bambu_wiki: "Bambu wiki",
+    printer_off: "The printer is off.",
+    turn_on: "Turn on",
+    printer_offline: "The printer is offline.",
+    no_print: "No print in progress.",
+    print: "Print",
+    progress: "Progress",
+    layers: "Layers",
+    remaining: "Remaining",
+    estimated_end: "Estimated end",
+    filament: "Filament",
+    length: "Length",
+    pause: "Pause",
+    resume: "Resume",
+    confirm_stop: "Confirm stop?",
+    stop: "Stop",
+    speed_silent: "Silent",
+    speed_standard: "Standard",
+    speed_sport: "Sport",
+    speed_ludicrous: "Ludicrous",
+    nozzle: "Nozzle",
+    bed: "Bed",
+    chamber: "Chamber",
+    temperatures: "Temperatures",
+    edit_target: "Change the target",
+    target: " · target {t} °C",
+    fans: "Fans",
+    fan_cooling_fan: "Part",
+    fan_aux_fan: "Auxiliary",
+    fan_chamber_fan: "Chamber",
+    fan_heatbreak_fan: "Heatbreak",
+    humidity_index: "Humidity index",
+    humidity: "Humidity",
+    temperature: "Temperature",
+    unavailable: "unavailable",
+    external_spool: "External spool",
+    filaments: "Filaments",
+    remaining_pct: "{n} % left",
+    empty: "Empty",
+    profile: "Profile",
+    type: "Type",
+    usage: "Usage",
+    timelapse: "Timelapse",
+    on: "On",
+    off: "Off",
+    connection: "Connection",
+    plug: "Plug",
+    energy: "Energy",
+    details: "Details",
+    firmware_update: "Firmware update available",
+    days_hours: "{d} d {h} h",
+    tomorrow: "tomorrow {time}",
+    refresh_requested: "Refresh requested",
+    stop_requested: "Print stop requested",
+    plug_off: "Plug turned off",
+    plug_on: "Plug turned on",
+    failed: "Failed: {error}",
+  },
+  fr: {
+    card_description: "Toutes les informations d'une imprimante Bambu Lab : caméra, impression, températures, AMS, erreurs et commandes.",
+    smart_plug: "Prise connectée",
+    label_device: "Imprimante",
+    label_title: "Titre (défaut : nom de l'imprimante)",
+    label_show_camera: "Caméra",
+    label_show_controls: "Commandes",
+    label_show_temperatures: "Températures",
+    label_show_fans: "Ventilateurs",
+    label_show_ams: "AMS / bobines",
+    label_show_details: "Détails",
+    label_power_switch: "Prise de l'imprimante",
+    label_power_sensor: "Puissance (W)",
+    label_energy_sensor: "Énergie consommée (kWh)",
+    no_device: "Choisissez l'imprimante (option « device »)",
+    printer: "Imprimante",
+    powered_off: "Éteinte",
+    offline: "Hors ligne",
+    power: "Puissance",
+    light: "Lumière",
+    force_refresh: "Forcer l'actualisation",
+    turn_off_plug: "Éteindre la prise",
+    confirm_off_printing: "Impression en cours ! Éteindre ?",
+    confirm_off: "Éteindre ?",
+    show_model: "Voir le modèle",
+    show_camera: "Voir la caméra",
+    hms_error: "Erreur HMS active",
+    print_error: "Erreur d'impression",
+    bambu_wiki: "Wiki Bambu",
+    printer_off: "L'imprimante est éteinte.",
+    turn_on: "Allumer",
+    printer_offline: "L'imprimante est hors ligne.",
+    no_print: "Aucune impression en cours.",
+    print: "Impression",
+    progress: "Progression",
+    layers: "Couches",
+    remaining: "Restant",
+    estimated_end: "Fin estimée",
+    filament: "Filament",
+    length: "Longueur",
+    pause: "Pause",
+    resume: "Reprendre",
+    confirm_stop: "Confirmer l'arrêt ?",
+    stop: "Arrêter",
+    speed_silent: "Silencieux",
+    speed_standard: "Standard",
+    speed_sport: "Sport",
+    speed_ludicrous: "Démentiel",
+    nozzle: "Buse",
+    bed: "Plateau",
+    chamber: "Chambre",
+    temperatures: "Températures",
+    edit_target: "Modifier la consigne",
+    target: " · cible {t} °C",
+    fans: "Ventilateurs",
+    fan_cooling_fan: "Pièce",
+    fan_aux_fan: "Auxiliaire",
+    fan_chamber_fan: "Chambre",
+    fan_heatbreak_fan: "Isolateur",
+    humidity_index: "Indice d'humidité",
+    humidity: "Humidité",
+    temperature: "Température",
+    unavailable: "indisponible",
+    external_spool: "Bobine externe",
+    filaments: "Filaments",
+    remaining_pct: "{n} % restant",
+    empty: "Vide",
+    profile: "Profil",
+    type: "Type",
+    usage: "Utilisation",
+    timelapse: "Timelapse",
+    on: "Activé",
+    off: "Désactivé",
+    connection: "Connexion",
+    plug: "Prise",
+    energy: "Énergie",
+    details: "Détails",
+    firmware_update: "Mise à jour du micrologiciel disponible",
+    days_hours: "{d} j {h} h",
+    tomorrow: "demain {time}",
+    refresh_requested: "Actualisation demandée",
+    stop_requested: "Arrêt de l'impression demandé",
+    plug_off: "Prise éteinte",
+    plug_on: "Prise allumée",
+    failed: "Échec : {error}",
+  },
+};
+
+// Langue de l'interface : celle de Home Assistant (français ou anglais, anglais par défaut)
+let lang = (navigator.language || "").startsWith("fr") ? "fr" : "en";
+const setLang = (hass) => {
+  const l = hass?.locale?.language || hass?.language;
+  if (l) lang = l.startsWith("fr") ? "fr" : "en";
+};
+const t = (key, vars = {}) =>
+  (STRINGS[lang][key] ?? STRINGS.en[key] ?? key).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? "");
+
 const esc = (s) =>
   String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
@@ -52,17 +236,17 @@ const STATUS = {
 const ACTIVE = ["running", "pause", "prepare", "slicing", "init"];
 
 const SPEEDS = [
-  { value: "silent", label: "Silencieux", icon: "mdi:tortoise" },
-  { value: "standard", label: "Standard", icon: "mdi:walk" },
-  { value: "sport", label: "Sport", icon: "mdi:run" },
-  { value: "ludicrous", label: "Démentiel", icon: "mdi:rocket-launch" },
+  { value: "silent", icon: "mdi:tortoise" },
+  { value: "standard", icon: "mdi:walk" },
+  { value: "sport", icon: "mdi:run" },
+  { value: "ludicrous", icon: "mdi:rocket-launch" },
 ];
 
 const FANS = [
-  { key: "cooling_fan", label: "Pièce", icon: "mdi:fan" },
-  { key: "aux_fan", label: "Auxiliaire", icon: "mdi:fan-chevron-up" },
-  { key: "chamber_fan", label: "Chambre", icon: "mdi:fan-chevron-down" },
-  { key: "heatbreak_fan", label: "Isolateur", icon: "mdi:fan-alert" },
+  { key: "cooling_fan", icon: "mdi:fan" },
+  { key: "aux_fan", icon: "mdi:fan-chevron-up" },
+  { key: "chamber_fan", icon: "mdi:fan-chevron-down" },
+  { key: "heatbreak_fan", icon: "mdi:fan-alert" },
 ];
 
 class BambuPrinterCard extends HTMLElement {
@@ -74,7 +258,7 @@ class BambuPrinterCard extends HTMLElement {
         {
           type: "expandable",
           name: "",
-          title: "Prise connectée",
+          title: t("smart_plug"),
           icon: "mdi:power-socket-eu",
           schema: [
             { name: "power_switch", selector: { entity: { domain: ["switch", "input_boolean"] } } },
@@ -95,24 +279,12 @@ class BambuPrinterCard extends HTMLElement {
           ],
         },
       ],
-      computeLabel: (s) =>
-        ({
-          device: "Imprimante",
-          title: "Titre (défaut : nom de l'imprimante)",
-          show_camera: "Caméra",
-          show_controls: "Commandes",
-          show_temperatures: "Températures",
-          show_fans: "Ventilateurs",
-          show_ams: "AMS / bobines",
-          show_details: "Détails",
-          power_switch: "Prise de l'imprimante",
-          power_sensor: "Puissance (W)",
-          energy_sensor: "Énergie consommée (kWh)",
-        })[s.name],
+      computeLabel: (s) => t(`label_${s.name}`),
     };
   }
 
   static getStubConfig(hass) {
+    setLang(hass);
     const printer = Object.values(hass.devices || {}).find(
       (d) => d.manufacturer === "Bambu Lab" && !d.via_device_id
     );
@@ -120,7 +292,7 @@ class BambuPrinterCard extends HTMLElement {
   }
 
   setConfig(config) {
-    if (!config.device) throw new Error("Choisissez l'imprimante (option « device »)");
+    if (!config.device) throw new Error(t("no_device"));
     this._config = {
       show_camera: true,
       show_controls: true,
@@ -138,6 +310,7 @@ class BambuPrinterCard extends HTMLElement {
   set hass(hass) {
     const first = !this._hass;
     this._hass = hass;
+    setLang(hass);
     if (first || !this._map) return this._discover();
     this._update();
   }
@@ -340,7 +513,7 @@ class BambuPrinterCard extends HTMLElement {
 
   _headerHtml() {
     const dev = this._hass.devices?.[this._config.device];
-    const name = this._config.title || this._val("sensor.name") || dev?.name_by_user || dev?.name || "Imprimante";
+    const name = this._config.title || this._val("sensor.name") || dev?.name_by_user || dev?.name || t("printer");
     const status = this._status();
     const st = STATUS[status] || STATUS.idle;
     const wifi = this._num("sensor.wifi_signal");
@@ -351,7 +524,7 @@ class BambuPrinterCard extends HTMLElement {
         ? "mdi:wifi-off"
         : wifi > -55 ? "mdi:wifi-strength-4" : wifi > -67 ? "mdi:wifi-strength-3" : wifi > -78 ? "mdi:wifi-strength-2" : "mdi:wifi-strength-1";
     const label =
-      status === "powered_off" ? "Éteinte" : status === "offline" ? "Hors ligne" : this._fmt("sensor.print_status") || "Hors ligne";
+      status === "powered_off" ? t("powered_off") : status === "offline" ? t("offline") : this._fmt("sensor.print_status") || t("offline");
     const power = this._powerState();
     const watts = this._config.power_sensor ? parseFloat(this._hass.states[this._config.power_sensor]?.state) : NaN;
     const confirming = this._confirm === "power";
@@ -364,13 +537,13 @@ class BambuPrinterCard extends HTMLElement {
           <div class="sub">${esc(dev?.model || "")}${dev?.model ? " · " : ""}<span style="color:${st.color}">${esc(label)}</span></div>
         </div>
         <div class="header-actions">
-          ${Number.isFinite(watts) && power !== "off" ? `<span class="watts" data-more="${esc(this._config.power_sensor)}" title="Puissance"><ha-icon icon="mdi:flash"></ha-icon>${Math.round(watts)} W</span>` : ""}
+          ${Number.isFinite(watts) && power !== "off" ? `<span class="watts" data-more="${esc(this._config.power_sensor)}" title="${t("power")}"><ha-icon icon="mdi:flash"></ha-icon>${Math.round(watts)} W</span>` : ""}
           ${wifi != null && wifi !== 0 ? `<span class="wifi" title="Wi-Fi ${wifi} dBm" data-more="${esc(this._eid("sensor.wifi_signal"))}"><ha-icon icon="${wifiIcon}"></ha-icon></span>` : ""}
-          ${light ? `<button class="icon-btn ${lightOn ? "on" : ""}" data-action="light" title="Lumière" ${light.state === "unavailable" ? "disabled" : ""}><ha-icon icon="mdi:${lightOn ? "lightbulb-on" : "lightbulb-outline"}"></ha-icon></button>` : ""}
-          ${this._eid("button.refresh") && power !== "off" ? `<button class="icon-btn" data-action="refresh" title="Forcer l'actualisation"><ha-icon icon="mdi:refresh"></ha-icon></button>` : ""}
+          ${light ? `<button class="icon-btn ${lightOn ? "on" : ""}" data-action="light" title="${t("light")}" ${light.state === "unavailable" ? "disabled" : ""}><ha-icon icon="mdi:${lightOn ? "lightbulb-on" : "lightbulb-outline"}"></ha-icon></button>` : ""}
+          ${this._eid("button.refresh") && power !== "off" ? `<button class="icon-btn" data-action="refresh" title="${t("force_refresh")}"><ha-icon icon="mdi:refresh"></ha-icon></button>` : ""}
           ${
             power && power !== "off"
-              ? `<button class="power-btn ${confirming ? "confirm" : "on"}" data-action="power" title="Éteindre la prise" ${power === "unavailable" ? "disabled" : ""}><ha-icon icon="mdi:power"></ha-icon>${confirming ? `<span>${ACTIVE.includes(status) ? "Impression en cours ! Éteindre ?" : "Éteindre ?"}</span>` : ""}</button>`
+              ? `<button class="power-btn ${confirming ? "confirm" : "on"}" data-action="power" title="${t("turn_off_plug")}" ${power === "unavailable" ? "disabled" : ""}><ha-icon icon="mdi:power"></ha-icon>${confirming ? `<span>${t(ACTIVE.includes(status) ? "confirm_off_printing" : "confirm_off")}</span>` : ""}</button>`
               : ""
           }
         </div>
@@ -411,7 +584,7 @@ class BambuPrinterCard extends HTMLElement {
     const active = ["running", "pause", "prepare"].includes(status);
     this.shadowRoot.querySelector("#media-overlay").innerHTML = `
       ${active && progress != null ? `<span class="badge">${Math.round(progress)} %</span>` : ""}
-      ${canToggle ? `<button class="icon-btn overlay-btn" data-action="media" title="${mode === "camera" ? "Voir le modèle" : "Voir la caméra"}"><ha-icon icon="${mode === "camera" ? "mdi:cube-outline" : "mdi:cctv"}"></ha-icon></button>` : ""}`;
+      ${canToggle ? `<button class="icon-btn overlay-btn" data-action="media" title="${t(mode === "camera" ? "show_model" : "show_camera")}"><ha-icon icon="${mode === "camera" ? "mdi:cube-outline" : "mdi:cctv"}"></ha-icon></button>` : ""}`;
   }
 
   _errorsHtml() {
@@ -427,10 +600,10 @@ class BambuPrinterCard extends HTMLElement {
         const severity = a[`${i}-Severity`] || a[`${i}-severity`] || "";
         if (text) items.push({ text, wiki, severity });
       }
-      if (!items.length) items.push({ text: "Erreur HMS active" });
+      if (!items.length) items.push({ text: t("hms_error") });
     }
     if (err?.state === "on") {
-      items.push({ text: err.attributes.error || err.attributes.Error || "Erreur d'impression", code: err.attributes.code });
+      items.push({ text: err.attributes.error || err.attributes.Error || t("print_error"), code: err.attributes.code });
     }
     if (!items.length) return "";
     return `
@@ -441,7 +614,7 @@ class BambuPrinterCard extends HTMLElement {
           <div class="error">
             <ha-icon icon="mdi:alert"></ha-icon>
             <div class="error-text">${esc(it.text)}${it.severity ? `<span class="muted"> · ${esc(it.severity)}</span>` : ""}${it.code ? `<span class="muted"> · ${esc(it.code)}</span>` : ""}</div>
-            ${it.wiki ? `<a href="${esc(it.wiki)}" target="_blank" rel="noreferrer" title="Wiki Bambu"><ha-icon icon="mdi:open-in-new"></ha-icon></a>` : ""}
+            ${it.wiki ? `<a href="${esc(it.wiki)}" target="_blank" rel="noreferrer" title="${t("bambu_wiki")}"><ha-icon icon="mdi:open-in-new"></ha-icon></a>` : ""}
           </div>`
           )
           .join("")}
@@ -455,12 +628,12 @@ class BambuPrinterCard extends HTMLElement {
       return `
         <div class="section powered-off">
           <ha-icon icon="mdi:power-plug-off-outline"></ha-icon>
-          <div>L'imprimante est éteinte.</div>
-          <button class="btn primary" data-action="power-on" ${unavailable ? "disabled" : ""}><ha-icon icon="mdi:power"></ha-icon>Allumer</button>
+          <div>${t("printer_off")}</div>
+          <button class="btn primary" data-action="power-on" ${unavailable ? "disabled" : ""}><ha-icon icon="mdi:power"></ha-icon>${t("turn_on")}</button>
         </div>`;
     }
     if (status === "offline") {
-      return `<div class="section empty">L'imprimante est hors ligne.</div>`;
+      return `<div class="section empty">${t("printer_offline")}</div>`;
     }
     const active = ACTIVE.includes(status);
     const progress = this._num("sensor.print_progress") ?? 0;
@@ -474,24 +647,24 @@ class BambuPrinterCard extends HTMLElement {
     const st = STATUS[status] || STATUS.idle;
 
     if (!active && !task) {
-      return `<div class="section empty">Aucune impression en cours.</div>`;
+      return `<div class="section empty">${t("no_print")}</div>`;
     }
 
     const end = remaining ? this._endTime(remaining) : null;
     return `
       <div class="section job">
         <div class="job-title" data-more="${esc(this._eid("sensor.subtask_name") || "")}">
-          <ha-icon icon="mdi:cube-outline"></ha-icon><span>${esc(task || "Impression")}</span>
+          <ha-icon icon="mdi:cube-outline"></ha-icon><span>${esc(task || t("print"))}</span>
         </div>
         ${active && stage && stage !== this._fmt("sensor.print_status") ? `<div class="stage">${esc(stage)}</div>` : ""}
         <div class="progress" style="--p:${progress}%;--c:${st.color}"><div></div></div>
         <div class="stats">
-          ${this._stat("mdi:percent-outline", `${Math.round(progress)} %`, "Progression")}
-          ${layers ? this._stat("mdi:layers-outline", `${layer ?? 0} / ${layers}`, "Couches") : ""}
-          ${active && remaining ? this._stat("mdi:timer-sand", this._duration(remaining), "Restant") : ""}
-          ${active && end ? this._stat("mdi:flag-checkered", end, "Fin estimée") : ""}
-          ${weight ? this._stat("mdi:weight-gram", `${Math.round(weight)} g`, "Filament") : ""}
-          ${length ? this._stat("mdi:ruler", `${length.toFixed(1)} m`, "Longueur") : ""}
+          ${this._stat("mdi:percent-outline", `${Math.round(progress)} %`, t("progress"))}
+          ${layers ? this._stat("mdi:layers-outline", `${layer ?? 0} / ${layers}`, t("layers")) : ""}
+          ${active && remaining ? this._stat("mdi:timer-sand", this._duration(remaining), t("remaining")) : ""}
+          ${active && end ? this._stat("mdi:flag-checkered", end, t("estimated_end")) : ""}
+          ${weight ? this._stat("mdi:weight-gram", `${Math.round(weight)} g`, t("filament")) : ""}
+          ${length ? this._stat("mdi:ruler", `${length.toFixed(1)} m`, t("length")) : ""}
         </div>
       </div>`;
   }
@@ -516,16 +689,16 @@ class BambuPrinterCard extends HTMLElement {
     return `
       <div class="section controls">
         <div class="buttons">
-          ${canPause ? `<button class="btn" data-action="press" data-entity="${esc(pause.entity_id)}"><ha-icon icon="mdi:pause"></ha-icon>Pause</button>` : ""}
-          ${canResume ? `<button class="btn primary" data-action="press" data-entity="${esc(resume.entity_id)}"><ha-icon icon="mdi:play"></ha-icon>Reprendre</button>` : ""}
-          ${canStop ? `<button class="btn danger" data-action="stop" data-entity="${esc(stop.entity_id)}"><ha-icon icon="mdi:stop"></ha-icon>${this._confirm === "stop" ? "Confirmer l'arrêt ?" : "Arrêter"}</button>` : ""}
+          ${canPause ? `<button class="btn" data-action="press" data-entity="${esc(pause.entity_id)}"><ha-icon icon="mdi:pause"></ha-icon>${t("pause")}</button>` : ""}
+          ${canResume ? `<button class="btn primary" data-action="press" data-entity="${esc(resume.entity_id)}"><ha-icon icon="mdi:play"></ha-icon>${t("resume")}</button>` : ""}
+          ${canStop ? `<button class="btn danger" data-action="stop" data-entity="${esc(stop.entity_id)}"><ha-icon icon="mdi:stop"></ha-icon>${t(this._confirm === "stop" ? "confirm_stop" : "stop")}</button>` : ""}
         </div>
         ${
           speedAvail
             ? `<div class="speeds">${SPEEDS.filter((s) => (speed.attributes.options || []).includes(s.value))
                 .map(
                   (s) =>
-                    `<button class="chip ${speed.state === s.value ? "on" : ""}" data-action="speed" data-entity="${esc(speed.entity_id)}" data-value="${s.value}" title="${s.label}"><ha-icon icon="${s.icon}"></ha-icon>${s.label}</button>`
+                    `<button class="chip ${speed.state === s.value ? "on" : ""}" data-action="speed" data-entity="${esc(speed.entity_id)}" data-value="${s.value}" title="${t(`speed_${s.value}`)}"><ha-icon icon="${s.icon}"></ha-icon>${t(`speed_${s.value}`)}</button>`
                 )
                 .join("")}</div>`
             : ""
@@ -535,15 +708,15 @@ class BambuPrinterCard extends HTMLElement {
 
   _tempsHtml() {
     const rows = [
-      { label: "Buse", icon: "mdi:printer-3d-nozzle-heat", cur: "sensor.nozzle_temp", target: "sensor.target_nozzle_temp", edit: "number.target_nozzle_temperature", max: 300 },
-      { label: "Plateau", icon: "mdi:radiator", cur: "sensor.bed_temp", target: "sensor.target_bed_temp", edit: "number.target_bed_temperature", max: 120 },
-      { label: "Chambre", icon: "mdi:thermometer", cur: "sensor.chamber_temp", max: 65 },
+      { label: t("nozzle"), icon: "mdi:printer-3d-nozzle-heat", cur: "sensor.nozzle_temp", target: "sensor.target_nozzle_temp", edit: "number.target_nozzle_temperature", max: 300 },
+      { label: t("bed"), icon: "mdi:radiator", cur: "sensor.bed_temp", target: "sensor.target_bed_temp", edit: "number.target_bed_temperature", max: 120 },
+      { label: t("chamber"), icon: "mdi:thermometer", cur: "sensor.chamber_temp", max: 65 },
     ].filter((r) => this._st(r.cur));
     if (!rows.length || this._offline()) return "";
 
     return `
       <div class="section">
-        <div class="section-label">Températures</div>
+        <div class="section-label">${t("temperatures")}</div>
         <div class="tiles">
           ${rows
             .map((r) => {
@@ -552,11 +725,11 @@ class BambuPrinterCard extends HTMLElement {
               const heating = target && cur != null && target - cur > 3;
               const pct = cur != null ? Math.min(100, (cur / r.max) * 100) : 0;
               return `
-              <div class="tile" data-more="${esc(this._eid(r.edit) || this._eid(r.cur))}" title="${r.edit ? "Modifier la consigne" : ""}">
+              <div class="tile" data-more="${esc(this._eid(r.edit) || this._eid(r.cur))}" title="${r.edit ? t("edit_target") : ""}">
                 <ha-icon icon="${r.icon}" class="${heating ? "heating" : ""}"></ha-icon>
                 <div class="tile-main">
                   <div class="tile-value">${cur != null ? Math.round(cur) : "–"}<small> °C</small></div>
-                  <div class="tile-label">${r.label}${target ? ` · cible ${Math.round(target)} °C` : ""}</div>
+                  <div class="tile-label">${r.label}${target ? t("target", { t: Math.round(target) }) : ""}</div>
                   <div class="mini-bar ${heating ? "heating" : ""}" style="--p:${pct}%"><div></div></div>
                 </div>
               </div>`;
@@ -574,7 +747,7 @@ class BambuPrinterCard extends HTMLElement {
     if (!fans.length) return "";
     return `
       <div class="section">
-        <div class="section-label">Ventilateurs</div>
+        <div class="section-label">${t("fans")}</div>
         <div class="fans">
           ${fans
             .map((f) => {
@@ -584,7 +757,7 @@ class BambuPrinterCard extends HTMLElement {
               <div class="fan" data-more="${esc(f.fan?.entity_id || f.speed?.entity_id)}">
                 <ha-icon icon="${f.icon}" class="${pct ? "spin" : ""}" style="--d:${pct ? Math.max(0.4, 2.5 - pct / 50) : 0}s"></ha-icon>
                 <div class="fan-value">${pct != null ? `${pct} %` : "–"}</div>
-                <div class="tile-label">${f.label}</div>
+                <div class="tile-label">${t(`fan_${f.key}`)}</div>
               </div>`;
             })
             .join("")}
@@ -600,25 +773,25 @@ class BambuPrinterCard extends HTMLElement {
       const hum = this._st(a.sensors["sensor.humidity"]);
       const temp = this._st(a.sensors["sensor.temperature"]);
       const meta = [
-        hIdx && !BAD.includes(hIdx.state) ? `<span title="Indice d'humidité"><ha-icon icon="mdi:water-percent"></ha-icon>${esc(hIdx.state)}/5</span>` : "",
-        hum && !BAD.includes(hum.state) ? `<span title="Humidité"><ha-icon icon="mdi:water"></ha-icon>${esc(Math.round(hum.state))} %</span>` : "",
-        temp && !BAD.includes(temp.state) ? `<span title="Température"><ha-icon icon="mdi:thermometer"></ha-icon>${esc(Math.round(temp.state))} °C</span>` : "",
+        hIdx && !BAD.includes(hIdx.state) ? `<span title="${t("humidity_index")}"><ha-icon icon="mdi:water-percent"></ha-icon>${esc(hIdx.state)}/5</span>` : "",
+        hum && !BAD.includes(hum.state) ? `<span title="${t("humidity")}"><ha-icon icon="mdi:water"></ha-icon>${esc(Math.round(hum.state))} %</span>` : "",
+        temp && !BAD.includes(temp.state) ? `<span title="${t("temperature")}"><ha-icon icon="mdi:thermometer"></ha-icon>${esc(Math.round(temp.state))} °C</span>` : "",
       ].join("");
       const unavailable = a.trays.every((t) => this._hass.states[t]?.state === "unavailable");
       return `
         <div class="ams">
-          <div class="ams-head"><span class="ams-name">${esc(this._shortAmsName(a))}</span><span class="ams-meta">${unavailable ? `<span class="muted">indisponible</span>` : meta}</span></div>
+          <div class="ams-head"><span class="ams-name">${esc(this._shortAmsName(a))}</span><span class="ams-meta">${unavailable ? `<span class="muted">${t("unavailable")}</span>` : meta}</span></div>
           <div class="trays">${a.trays.map((t, i) => this._trayHtml(t, `${i + 1}`)).join("")}</div>
         </div>`;
     });
     if (external) {
       blocks.push(`
         <div class="ams external">
-          <div class="ams-head"><span class="ams-name">Bobine externe</span></div>
+          <div class="ams-head"><span class="ams-name">${t("external_spool")}</span></div>
           <div class="trays">${this._trayHtml(external, "Ext")}</div>
         </div>`);
     }
-    return `<div class="section"><div class="section-label">Filaments</div><div class="ams-list">${blocks.join("")}</div></div>`;
+    return `<div class="section"><div class="section-label">${t("filaments")}</div><div class="ams-list">${blocks.join("")}</div></div>`;
   }
 
   _shortAmsName(a) {
@@ -636,7 +809,7 @@ class BambuPrinterCard extends HTMLElement {
     const alpha = color.length === 9 ? parseInt(color.slice(7), 16) / 255 : 1;
     const remain = Number(a.remain);
     const showRemain = Number.isFinite(remain) && remain >= 0 && a.remain_enabled !== false;
-    const title = [a.name || s?.state, a.type, a.nozzle_temp_min ? `${a.nozzle_temp_min}–${a.nozzle_temp_max} °C` : "", showRemain ? `${remain} % restant` : ""]
+    const title = [a.name || s?.state, a.type, a.nozzle_temp_min ? `${a.nozzle_temp_min}–${a.nozzle_temp_max} °C` : "", showRemain ? t("remaining_pct", { n: remain }) : ""]
       .filter(Boolean)
       .join(" · ");
     return `
@@ -645,7 +818,7 @@ class BambuPrinterCard extends HTMLElement {
           <div class="fill"></div>
           <span class="tray-num">${esc(label)}</span>
         </div>
-        <div class="tray-type">${empty ? "Vide" : esc(a.type || "?")}</div>
+        <div class="tray-type">${empty ? t("empty") : esc(a.type || "?")}</div>
         <div class="tray-name">${empty ? "" : esc(a.name || s.state || "")}</div>
         ${showRemain && !empty ? `<div class="tray-remain">${remain} %</div>` : ""}
       </div>`;
@@ -653,23 +826,23 @@ class BambuPrinterCard extends HTMLElement {
 
   _detailsHtml() {
     const items = [
-      ["mdi:printer-3d-nozzle", "Buse", [this._fmt("sensor.nozzle_diameter"), this._fmt("sensor.nozzle_type")].filter(Boolean).join(" · "), "sensor.nozzle_type"],
-      ["mdi:texture-box", "Plateau", this._fmt("sensor.print_bed_type"), "sensor.print_bed_type"],
-      ["mdi:speedometer", "Profil", this._fmt("sensor.speed_profile"), "sensor.speed_profile"],
-      ["mdi:file-cog-outline", "Type", this._fmt("sensor.print_type"), "sensor.print_type"],
-      ["mdi:clock-outline", "Utilisation", this._num("sensor.total_usage_hours") != null ? `${Math.round(this._num("sensor.total_usage_hours"))} h` : null, "sensor.total_usage_hours"],
-      ["mdi:video-outline", "Timelapse", this._val("binary_sensor.timelapse") ? (this._val("binary_sensor.timelapse") === "on" ? "Activé" : "Désactivé") : null, "binary_sensor.timelapse"],
-      ["mdi:lan-connect", "Connexion", this._fmt("sensor.mqtt_mode"), "sensor.mqtt_mode"],
+      ["mdi:printer-3d-nozzle", t("nozzle"), [this._fmt("sensor.nozzle_diameter"), this._fmt("sensor.nozzle_type")].filter(Boolean).join(" · "), "sensor.nozzle_type"],
+      ["mdi:texture-box", t("bed"), this._fmt("sensor.print_bed_type"), "sensor.print_bed_type"],
+      ["mdi:speedometer", t("profile"), this._fmt("sensor.speed_profile"), "sensor.speed_profile"],
+      ["mdi:file-cog-outline", t("type"), this._fmt("sensor.print_type"), "sensor.print_type"],
+      ["mdi:clock-outline", t("usage"), this._num("sensor.total_usage_hours") != null ? `${Math.round(this._num("sensor.total_usage_hours"))} h` : null, "sensor.total_usage_hours"],
+      ["mdi:video-outline", t("timelapse"), this._val("binary_sensor.timelapse") ? t(this._val("binary_sensor.timelapse") === "on" ? "on" : "off") : null, "binary_sensor.timelapse"],
+      ["mdi:lan-connect", t("connection"), this._fmt("sensor.mqtt_mode"), "sensor.mqtt_mode"],
       ["mdi:wifi", "Wi-Fi", this._num("sensor.wifi_signal") ? `${this._num("sensor.wifi_signal")} dBm` : null, "sensor.wifi_signal"],
-      ["mdi:power-socket-eu", "Prise", this._config.power_switch ? this._fmt(this._config.power_switch) : null, this._config.power_switch],
-      ["mdi:lightning-bolt", "Énergie", this._config.energy_sensor ? this._fmt(this._config.energy_sensor) : null, this._config.energy_sensor],
+      ["mdi:power-socket-eu", t("plug"), this._config.power_switch ? this._fmt(this._config.power_switch) : null, this._config.power_switch],
+      ["mdi:lightning-bolt", t("energy"), this._config.energy_sensor ? this._fmt(this._config.energy_sensor) : null, this._config.energy_sensor],
     ].filter((i) => i[2]);
     const fw = this._val("binary_sensor.firmware_update") === "on";
     if (!items.length && !fw) return "";
     return `
       <div class="section">
-        <div class="section-label">Détails</div>
-        ${fw ? `<div class="notice" data-more="${esc(this._eid("binary_sensor.firmware_update"))}"><ha-icon icon="mdi:update"></ha-icon>Mise à jour du micrologiciel disponible</div>` : ""}
+        <div class="section-label">${t("details")}</div>
+        ${fw ? `<div class="notice" data-more="${esc(this._eid("binary_sensor.firmware_update"))}"><ha-icon icon="mdi:update"></ha-icon>${t("firmware_update")}</div>` : ""}
         <div class="details">
           ${items
             .map(
@@ -690,20 +863,20 @@ class BambuPrinterCard extends HTMLElement {
     const d = Math.floor(min / 1440);
     const h = Math.floor((min % 1440) / 60);
     const m = min % 60;
-    if (d) return `${d} j ${h} h`;
+    if (d) return t("days_hours", { d, h });
     if (h) return `${h} h ${String(m).padStart(2, "0")}`;
     return `${m} min`;
   }
 
   _endTime(remainingMin) {
     const end = new Date(Date.now() + remainingMin * 60000);
-    const lang = this._hass.locale?.language || "fr";
-    const time = end.toLocaleTimeString(lang, { hour: "2-digit", minute: "2-digit" });
+    const locale = this._hass.locale?.language || "fr";
+    const time = end.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" });
     const today = new Date();
     const days = Math.round((new Date(end).setHours(0, 0, 0, 0) - today.setHours(0, 0, 0, 0)) / 86400000);
     if (days === 0) return time;
-    if (days === 1) return `demain ${time}`;
-    return `${end.toLocaleDateString(lang, { weekday: "short" })} ${time}`;
+    if (days === 1) return t("tomorrow", { time });
+    return `${end.toLocaleDateString(locale, { weekday: "short" })} ${time}`;
   }
 
   /* ---------- Actions ---------- */
@@ -718,7 +891,7 @@ class BambuPrinterCard extends HTMLElement {
         case "light":
           return this._call("light", "toggle", { entity_id: this._eid("light.chamber_light") });
         case "refresh":
-          return this._call("button", "press", { entity_id: this._eid("button.refresh") }, "Actualisation demandée");
+          return this._call("button", "press", { entity_id: this._eid("button.refresh") }, t("refresh_requested"));
         case "press":
           return this._call("button", "press", { entity_id: entity });
         case "speed":
@@ -728,12 +901,12 @@ class BambuPrinterCard extends HTMLElement {
           return this._updateMedia();
         case "stop":
           if (!this._askConfirm("stop")) return;
-          return this._call("button", "press", { entity_id: entity }, "Arrêt de l'impression demandé");
+          return this._call("button", "press", { entity_id: entity }, t("stop_requested"));
         case "power":
           if (!this._askConfirm("power")) return;
-          return this._call("homeassistant", "turn_off", { entity_id: this._config.power_switch }, "Prise éteinte");
+          return this._call("homeassistant", "turn_off", { entity_id: this._config.power_switch }, t("plug_off"));
         case "power-on":
-          return this._call("homeassistant", "turn_on", { entity_id: this._config.power_switch }, "Prise allumée");
+          return this._call("homeassistant", "turn_on", { entity_id: this._config.power_switch }, t("plug_on"));
       }
       return;
     }
@@ -765,7 +938,7 @@ class BambuPrinterCard extends HTMLElement {
       await this._hass.callService(domain, service, data);
       if (okMessage) this._toast(okMessage);
     } catch (err) {
-      this._toast(`Échec : ${err.message || err}`);
+      this._toast(t("failed", { error: err.message || err }));
     }
   }
 
@@ -968,7 +1141,7 @@ if (!window.customCards.some((c) => c.type === "bambu-printer-card")) {
   window.customCards.push({
     type: "bambu-printer-card",
     name: "Bambu Printer Card",
-    description: "Toutes les informations d'une imprimante Bambu Lab : caméra, impression, températures, AMS, erreurs et commandes.",
+    description: t("card_description"),
     preview: false,
   });
 }

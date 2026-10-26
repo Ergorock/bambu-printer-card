@@ -1,63 +1,67 @@
 # Bambu Printer Card
 
-Carte Lovelace qui regroupe toutes les informations d'une imprimante Bambu Lab
-remontées par l'intégration HACS [`bambu_lab`](https://github.com/greghesp/ha-bambulab).
+*[Version française](README.fr.md)*
 
-- En-tête : état, modèle, signal Wi-Fi, lumière de la chambre, actualisation forcée
-- Caméra en direct, ou l'aperçu du modèle (bouton pour passer de l'un à l'autre), avec la progression en surimpression
-- Erreurs HMS et erreurs d'impression, avec un lien vers le wiki Bambu
-- Impression en cours : nom, étape, barre de progression, couches, temps restant, heure de fin estimée, poids et longueur de filament
-- Commandes : pause, reprise, arrêt (confirmé par un second clic), profil de vitesse
-- Températures de la buse et du plateau (et de la chambre si l'imprimante en a une) avec leur consigne ; un clic ouvre la fiche de l'entité pour modifier la consigne
-- Ventilateurs
-- AMS (couleur, type, quantité restante, emplacement actif, humidité) et bobine externe
-- Détails : buse, plateau, profil, durée d'utilisation, timelapse, connexion, mise à jour du micrologiciel
+Lovelace card that gathers everything about a Bambu Lab printer
+reported by the [`bambu_lab`](https://github.com/greghesp/ha-bambulab) HACS integration.
 
-- Prise connectée (optionnelle) : bouton marche/arrêt dans l'en-tête (l'extinction demande un second clic de confirmation, avec un avertissement si une impression est en cours), écran « Imprimante éteinte » avec un bouton Allumer, puissance et énergie si la prise les mesure
+- Header: status, model, Wi-Fi signal, chamber light, forced refresh
+- Live camera, or the model preview (a button switches between them), with the progress overlaid
+- HMS errors and print errors, with a link to the Bambu wiki
+- Current print: name, stage, progress bar, layers, time left, estimated end time, filament weight and length
+- Controls: pause, resume, stop (confirmed by a second click), speed profile
+- Nozzle and bed temperatures (and chamber, if the printer has one) with their target; a click opens the entity dialog to change the target
+- Fans
+- AMS (color, type, remaining amount, active slot, humidity) and external spool
+- Details: nozzle, bed, profile, usage time, timelapse, connection, firmware update
 
-Un clic sur presque chaque élément ouvre la fiche (« more-info ») de l'entité correspondante.
+- Smart plug (optional): on/off button in the header (turning off needs a second confirmation click, with a warning while printing), a “Printer off” screen with a Turn on button, power and energy if the plug measures them
 
-La mise en page suit la largeur de la carte (container queries) : 1 colonne en dessous de 700 px, 2 colonnes jusqu'à 1100 px, 3 colonnes au-delà.
-Pour une carte large dans une vue *sections*, mettez la section en pleine largeur (`column_span` égal au `max_columns` de la vue).
+A click on almost every element opens the matching entity's dialog (“more-info”).
+
+The interface is available in English and French (it follows the Home Assistant language).
+
+The layout follows the card width (container queries): 1 column below 700 px, 2 columns up to 1100 px, 3 columns beyond.
+For a wide card in a *sections* view, make the section full width (`column_span` equal to the view's `max_columns`).
 
 ## Installation
 
-### HACS (dépôt personnalisé)
+### HACS (custom repository)
 
-1. HACS → menu ⋮ → *Dépôts personnalisés* → ajoutez `https://github.com/Ergorock/bambu-printer-card`, catégorie **Dashboard**.
-2. Installez **Bambu Printer Card**, puis rechargez le navigateur.
+1. HACS → ⋮ menu → *Custom repositories* → add `https://github.com/Ergorock/bambu-printer-card`, category **Dashboard**.
+2. Install **Bambu Printer Card**, then reload your browser.
 
-### Manuelle
+### Manual
 
-1. Copiez `bambu-printer-card.js` dans `config/www/bambu-printer-card.js`.
-2. *Paramètres → Tableaux de bord → ⋮ → Ressources* : ajoutez `/local/bambu-printer-card.js?v=1.1.0` (type *Module JavaScript*).
+1. Copy `bambu-printer-card.js` to `config/www/bambu-printer-card.js`.
+2. *Settings → Dashboards → ⋮ → Resources*: add `/local/bambu-printer-card.js?v=1.1.0` (type *JavaScript module*).
 
-Rechargez ensuite la page avec Ctrl+Maj+R.
+Then reload the page with Ctrl+Shift+R.
 
 ## Configuration
 
-Ajoutez la carte « Bambu Printer Card » depuis l'éditeur visuel, ou en YAML :
+Add the “Bambu Printer Card” from the visual editor, or in YAML:
 
 ```yaml
 type: custom:bambu-printer-card
 device: 6a563c3a56e7cb6aecd12f463f278011
-title: Imprimante 3D          # optionnel
+title: 3D printer             # optional
 show_camera: true
 show_controls: true
 show_temperatures: true
 show_fans: true
 show_ams: true
 show_details: true
-power_switch: switch.imprimante_3d_outlet   # optionnel
-power_sensor: sensor.prise_puissance        # optionnel, en W
-energy_sensor: sensor.prise_energie         # optionnel, en kWh
+power_switch: switch.3d_printer_outlet   # optional
+power_sensor: sensor.plug_power          # optional, in W
+energy_sensor: sensor.plug_energy        # optional, in kWh
 ```
 
-Les entités sont retrouvées à partir de l'appareil, grâce à leur `unique_id` : renommer les entités ne casse pas la carte.
-Pour forcer une entité précise, utilisez `entities:` (clé `domaine.clé` → `entity_id`), par exemple
-`sensor.nozzle_temp: sensor.ma_buse`.
+Entities are found from the device through their `unique_id`: renaming entities doesn't break the card.
+To force a specific entity, use `entities:` (key `domain.key` → `entity_id`), for example
+`sensor.nozzle_temp: sensor.my_nozzle`.
 
-## Développement
+## Development
 
-`demo.html` affiche la carte avec un faux `hass`, selon quatre scénarios (impression, pause avec erreur, veille, hors ligne).
-Elle se lance avec la configuration `demo` de `.claude/launch.json` (http://localhost:8765/demo.html).
+`demo.html` shows the card with a fake `hass`, in four scenarios (printing, paused with an error, idle, offline).
+It runs with the `demo` configuration of `.claude/launch.json` (http://localhost:8765/demo.html).
