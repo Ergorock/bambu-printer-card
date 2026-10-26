@@ -22,9 +22,15 @@ Pour une carte large dans une vue *sections*, mettez la section en pleine largeu
 
 ## Installation
 
-La carte est enregistrée dans Home Assistant comme ressource de tableau de bord intégrée (inline).
-Pour l'installer à la main : copier `bambu-printer-card.js` dans `/config/www/`, puis ajouter la ressource
-`/local/bambu-printer-card.js` (type *module*) dans **Paramètres → Tableaux de bord → Ressources**.
+### HACS (dépôt personnalisé)
+
+1. HACS → menu ⋮ → *Dépôts personnalisés* → ajoutez `https://github.com/Ergorock/bambu-printer-card`, catégorie **Dashboard**.
+2. Installez **Bambu Printer Card**, puis rechargez le navigateur.
+
+### Manuelle
+
+1. Copiez `bambu-printer-card.js` dans `config/www/bambu-printer-card.js`.
+2. *Paramètres → Tableaux de bord → ⋮ → Ressources* : ajoutez `/local/bambu-printer-card.js?v=1.1.0` (type *Module JavaScript*).
 
 Rechargez ensuite la page avec Ctrl+Maj+R.
 

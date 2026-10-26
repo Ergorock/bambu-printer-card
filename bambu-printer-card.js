@@ -961,14 +961,16 @@ const STYLES = `
   }
 `;
 
-customElements.define("bambu-printer-card", BambuPrinterCard);
+if (!customElements.get("bambu-printer-card")) customElements.define("bambu-printer-card", BambuPrinterCard);
 
 window.customCards = window.customCards || [];
-window.customCards.push({
-  type: "bambu-printer-card",
-  name: "Bambu Printer Card",
-  description: "Toutes les informations d'une imprimante Bambu Lab : caméra, impression, températures, AMS, erreurs et commandes.",
-  preview: false,
-});
+if (!window.customCards.some((c) => c.type === "bambu-printer-card")) {
+  window.customCards.push({
+    type: "bambu-printer-card",
+    name: "Bambu Printer Card",
+    description: "Toutes les informations d'une imprimante Bambu Lab : caméra, impression, températures, AMS, erreurs et commandes.",
+    preview: false,
+  });
+}
 
 console.info(`%c BAMBU-PRINTER-CARD %c v${CARD_VERSION} `, "background:#00ae42;color:#fff", "background:#444;color:#fff");
